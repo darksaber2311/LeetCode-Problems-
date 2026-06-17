@@ -16,14 +16,15 @@ public:
         {
             rem = num%10;
             rev = rev+rem*pow(10,size-1);
+             if(rev<pow(-2,31) || rev > pow(2,31)-1)
+       {
+            return 0;
+       }
             num = num/10;
             //n++;
             size--;
         }
-        if(rev<pow(-2,31) || rev > pow(2,31)-1)
-       {
-            return 0;
-       }
+       
         //if(x<0)
         //{
          //   return -123%10;
