@@ -10,6 +10,10 @@ public:
                 count_target++;
             }
         }
+        if(count_target<=1)
+        {
+            return count_target;
+        }
         int window_size = 2*count_target-1;
         int count = 0;
 
