@@ -9,7 +9,7 @@ public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int mn_dist = INT_MAX;
         vector<vector<int>> res(mat.size(),vector<int>(mat[0].size(),mn_dist));
-        queue<pair<pair<int,int>,int>> path_cost;
+        queue<pair<int,int>> path_cost;
         //vector<vector<bool>> visited(mat.size(),vector<bool>(mat[0].size(),false));
 
         for(int i = 0;i<mat.size();i++)
@@ -19,7 +19,7 @@ public:
                 if(mat[i][j] == 0)
                 {
                     res[i][j] = 0;
-                    path_cost.push({{i,j},0});
+                    path_cost.push({i,j});
                 }
                 
             }
@@ -27,29 +27,29 @@ public:
         
         while(!path_cost.empty())
         {
-            pair<int,int>curr = path_cost.front().first;
+            auto curr = path_cost.front();
             int x = curr.first;
             int y = curr.second;
             //int prev_cost = path_cost.front().second;
             if(hasNeighbour(mat,x-1,y) && res[x-1][y] == INT_MAX)
             {
                 res[x-1][y] = res[x][y] + 1;
-                path_cost.push({{x-1,y},res[x-1][y]});
+                path_cost.push({x-1,y});
             }
             if(hasNeighbour(mat,x+1,y) && res[x+1][y] == INT_MAX)
             {
                 res[x+1][y] = res[x][y] +1;
-                path_cost.push({{x+1,y},res[x+1][y]});
+                path_cost.push({x+1,y});
             }
             if(hasNeighbour(mat,x,y-1) && res[x][y-1] == INT_MAX)
             {
                 res[x][y-1] = res[x][y] + 1;
-                path_cost.push({{x,y-1},res[x][y-1]});
+                path_cost.push({x,y-1});
             }
             if(hasNeighbour(mat,x,y+1) && res[x][y+1] == INT_MAX)
             {
                 res[x][y+1] = res[x][y] + 1;
-                path_cost.push({{x,y+1},res[x][y+1]});
+                path_cost.push({x,y+1});
             }
             path_cost.pop();
             //visited[curr.first][curr.second] = true;
