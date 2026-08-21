@@ -9,17 +9,21 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        unordered_map<ListNode*,int>map;
-        ListNode* curr = head;
-        while(curr!=nullptr)
+    // two ways to solve problem
+    // 1.Hashmaps to detect if a node is visited twice -- Time O(n) and Space(O(n))
+    // 2.Fast and slow pointers -- Time O(n) and Space(O(1)) -- bettter solution
+
+    ListNode* fast = head;
+    ListNode* slow = head; 
+    while( fast!=nullptr && fast->next!=nullptr)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+        if(fast == slow)
         {
-            map[curr]++;
-            if(map[curr]>1)
-            {
-                return true;
-            }
-            curr = curr->next;
+            return true;
         }
-        return false;
     }
+    return false;
+}
 };
