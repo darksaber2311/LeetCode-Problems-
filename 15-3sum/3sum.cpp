@@ -1,64 +1,48 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        //set<vector<int>> res;
-        vector<vector<int>>res;
-        int pointer1 = 0;
-        int poinnter2 = nums.size()-1;
-        int n = nums.size();
-        bool duplicate = false;
         sort(nums.begin(),nums.end());
-
-        for(int i=0;i<n;i++)
+        vector<vector<int>>res;
+        for(int i = 0;i<nums.size();i++)
         {
-             int pointer1 = i+1;
-             int pointer2 = nums.size()-1;
-             
-             while(pointer1<pointer2)
-             {
-                vector<int> triplet;
-                int sum = nums[i] + nums[pointer1] + nums[pointer2];
+            if(i>0 && nums[i-1] == nums[i])continue;
+            int p1 = i+1;
+            int p2 = nums.size()-1;
+            //int prev_p1 = -1;
+            //int prev_p2 = -1;
+            while(p2>p1)
+            {
+                
+                int sum = nums[i] + nums[p1] + nums[p2];
+                
+            
                 if(sum == 0)
                 {
-                    if(!res.empty())
+                    res.push_back({nums[i],nums[p1],nums[p2]});
+                    //prev_p1 = p1;
+                    p1++;
+                    p2--;
+                    while(p1<p2 &&(nums[p1] == nums[p1-1]))
                     {
-                        for(int j = 0;j<res.size();j++)
-                        {
-                            if(res[j][0] == nums[i] && res[j][1] == nums[pointer1])
-                            {
-                                duplicate = true;
-                            }
-                        }
+                        p1++;
                     }
-                    if(!duplicate)
+                    while(p1<p2 && (nums[p2] == nums[p2+1]))
                     {
-                    triplet.push_back(nums[i]);
-                    triplet.push_back(nums[pointer1]);
-                    triplet.push_back(nums[pointer2]);
-                    res.push_back(triplet);
+                        p2--;
                     }
-                    duplicate = false;
-                    pointer1++;
-                    pointer2--;
-                   
                 }
-                if(sum < 0)
+                else if(sum > 0)
                 {
-                    pointer1++;
+                   // prev_p2 = p2;
+                    p2--;
                 }
-                if(sum > 0 )
+                else 
                 {
-                    pointer2--;
+                    //prev_p1 = p1;
+                    p1++;
                 }
-             }
-             
+            }
         }
-        //vector<vector<int>> ans;
-        /*for(auto triplets:res)
-        {
-            ans.push_back(triplets);
-        }
-        return ans;*/
         return res;
     }
 };
