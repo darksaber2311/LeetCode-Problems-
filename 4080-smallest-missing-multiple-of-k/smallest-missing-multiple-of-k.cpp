@@ -9,6 +9,7 @@ public:
             { 
                 checker+=k;
             }
+            else if(checker < nums[i]) return checker;
         }
         
         return checker;
