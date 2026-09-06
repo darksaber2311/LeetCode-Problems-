@@ -5,18 +5,18 @@ public:
         int n = nums.size();
         vector<int>dp(n,INT_MAX);
         dp[0] = 0;
-        for(int i = 1;i<n;i++)
+        int i = 0;
+        int j = 1;
+        while(dp[n-1] == INT_MAX)
         {
-            //int min_jump = INT_MAX;
-            for(int j=i-1;j>=0;j--)
+            while(j<=i+nums[i] && j<n)
             {
-                if(i-j<=nums[j])
-                {
-                   // count++;
-                    dp[i] = min(dp[i],dp[j]+1);
-                }
+                dp[j] = dp[i]+1;
+                j++;
             }
+            i++;
         }
+        
         return dp[n-1];
     }
 };
