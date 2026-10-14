@@ -1,10 +1,9 @@
 class Solution {
 public:
-
+    int m ,n;
     void dfs(vector<vector<char>> &grid,int x,int y)
     {
-        int m = grid.size();
-        int n = grid[0].size();
+        
         if(x < 0 || y<0 || x >= m || y>=n || grid[x][y] == '0')return;
 
         grid[x][y] = '0'; // visited 
@@ -16,8 +15,8 @@ public:
 
     }
     int numIslands(vector<vector<char>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
+        m = grid.size();
+        n = grid[0].size();
         int islands  = 0;
 
         for(int i = 0;i<m ;i++)
