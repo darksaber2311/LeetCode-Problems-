@@ -9,11 +9,8 @@ public:
         {
             sum+=nums[right];
             mx = max(mx,sum); 
-            while(sum< 0 && left<n)
-            {
-                sum-=nums[left];
-                left++;
-            }
+            // Kadane's algo
+            if(sum<0)sum = 0;
             
         }
         return mx;
