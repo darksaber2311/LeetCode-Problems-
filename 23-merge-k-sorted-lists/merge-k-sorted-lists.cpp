@@ -23,40 +23,24 @@ public:
             {
                 newNode->next = p1;
                 p1 = p1->next;
-                newNode = newNode->next;
+                
             }
             else
             {
                 newNode->next = p2;
                 p2 = p2->next;
-                newNode = newNode->next;
             }
+            newNode = newNode->next;
         }
-        if(p1)
-        {
-            while(p1!=nullptr)
-            {
-                newNode->next = p1;
-                p1 = p1->next;
-                newNode = newNode->next;
-            }
-        }
-        if(p2)
-        {
-            while(p2!=nullptr)
-            {
-                newNode->next = p2;
-                p2 = p2->next;
-                newNode = newNode->next;
-            }
-        }
+        newNode->next = p1?p1:p2;
         return res->next;
 
 
     }
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
+    ListNode* mergeKLists(vector<ListNode*> lists) {
         //ListNode* newNode = nullptr;
-        if(lists.empty())return nullptr; // basecase
+        // normal approach with O(nk) complexity
+       /* if(lists.empty())return nullptr; // basecase
         int k = lists.size();
         if(k == 1)return lists[0]; // basecase
 
@@ -68,6 +52,30 @@ public:
         }
         lists.pop_back();
         ListNode* result = mergeKLists(lists);
+        return result;*/
+
+        // ----- ------      DIVIDE AND CONQUER ---------------------
+        if(lists.empty())return nullptr;
+        int k = lists.size();
+        if(k == 1)return lists[0];
+        int lo = 0;
+        int hi = k;
+        int mid = (hi + lo)/2;
+        vector<ListNode*> first;
+        vector<ListNode*> second;
+        for(int i = lo;i<mid;i++)
+        {
+            first.push_back(lists[i]);
+        }
+        for(int i = mid;i<hi;i++)
+        {
+            second.push_back(lists[i]);
+        }
+        ListNode* list1 = mergeKLists(first);
+        ListNode* list2 = mergeKLists(second);
+
+        ListNode* result = merge(list1,list2);
         return result;
+         
     }
 };
