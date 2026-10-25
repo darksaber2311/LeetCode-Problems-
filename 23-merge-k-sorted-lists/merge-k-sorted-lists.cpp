@@ -37,7 +37,7 @@ public:
 
 
     }
-    ListNode* mergeKLists(vector<ListNode*> lists) {
+    ListNode* mergeKLists(vector<ListNode*> &lists) {
         //ListNode* newNode = nullptr;
         // normal approach with O(nk) complexity
        /* if(lists.empty())return nullptr; // basecase
@@ -58,24 +58,21 @@ public:
         if(lists.empty())return nullptr;
         int k = lists.size();
         if(k == 1)return lists[0];
-        int lo = 0;
-        int hi = k;
-        int mid = (hi + lo)/2;
+        int mid  = k/2;
         vector<ListNode*> first;
         vector<ListNode*> second;
-        for(int i = lo;i<mid;i++)
+        for(int i = 0;i<mid;i++)
         {
             first.push_back(lists[i]);
         }
-        for(int i = mid;i<hi;i++)
+        for(int i = mid;i<k;i++)
         {
             second.push_back(lists[i]);
         }
         ListNode* list1 = mergeKLists(first);
         ListNode* list2 = mergeKLists(second);
 
-        ListNode* result = merge(list1,list2);
-        return result;
+        return merge(list1,list2);
          
     }
 };
